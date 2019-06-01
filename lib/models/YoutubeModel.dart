@@ -15,7 +15,7 @@ class YoutubeModel {
               json[i]['snippet']['channelId'],
               json[i]['snippet']['description'],
               json[i]['snippet']['publishedAt'],
-              json[i]['snippet']['thumbnails']['default']['ur'],
+              json[i]['snippet']['thumbnails']['default']['url'],
               json[i]['snippet']['title']
           )
       );
