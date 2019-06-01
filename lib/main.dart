@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hack/screens/homeScreens/homePage.dart';
+import 'package:flutter_hack/themes/homeTheme/theme1.dart';
 
-import 'bloc/github_bloc.dart';
-import 'bloc/youtube_bloc.dart';
-import 'models/GithubModel.dart';
-import 'models/YoutubeModel.dart';
 
-void main() => runApp(MainActivity());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+        runApp(MainActivity());
+  });
+}
 
 class MainActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      title: "Flutter Community App",
+      debugShowCheckedModeBanner: false,
+      theme: buildThemeData(),
+      home: HomePage(),
     );
   }
 }
+<<<<<<< HEAD
 
 class Home extends StatefulWidget {
   @override
@@ -119,3 +127,5 @@ class _HomeState extends State<Home> {
 }
 
 
+=======
+>>>>>>> 4786ba45098bb2c07ce01429043db6132fae8e27

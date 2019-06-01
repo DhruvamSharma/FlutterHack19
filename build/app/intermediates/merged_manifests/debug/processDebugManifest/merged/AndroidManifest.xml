@@ -20,7 +20,8 @@
          FlutterApplication and put your custom class here.
     -->
     <application
-        android:name="o.flutter.app.FlutterApplication"
+        android:name="io.flutter.app.FlutterApplication"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="flutter_hack" >
@@ -48,6 +49,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="io.flutter.plugins.urllauncher.UrlLauncherPlugin$WebViewActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>
