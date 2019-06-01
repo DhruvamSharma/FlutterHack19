@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'bloc/github_bloc.dart';
 import 'bloc/youtube_bloc.dart';
+import 'models/GithubModel.dart';
 import 'models/YoutubeModel.dart';
 
 void main() => runApp(MainActivity());
@@ -29,6 +31,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             youtubeBloc.fetchYoutubeChannels();
+            githubBloc.fetchGithubUsersChannels();
           },
           label: Text('Fetch'),
       ),
@@ -62,22 +65,49 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: StreamBuilder<List<YoutubeModel>>(
-        stream: youtubeBloc.youtubeStream,
-        builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, position) {
-                return ListTile(
-                  title: Text(snapshot.data[position].title),
-                );
-              },
-            );
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-        }
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            StreamBuilder<List<YoutubeModel>>(
+              stream: youtubeBloc.youtubeStream,
+              builder: (context, snapshot) {
+                if(snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, position) {
+                      return ListTile(
+                        title: Text(snapshot.data[position].title),
+                      );
+                    },
+                  );
+                } else if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }
+            ),
+
+
+            StreamBuilder<List<GithubModel>>(
+                stream: githubBloc.githubStream,
+                builder: (context, snapshot) {
+                  if(snapshot.hasData) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, position) {
+                        return ListTile(
+                          title: Text(snapshot.data[position].repos_url),
+                        );
+                      },
+                    );
+                  } else if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }
+            ),
+          ],
+        ),
       ),
     );
   }
